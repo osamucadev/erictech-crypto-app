@@ -1,1 +1,1 @@
-# erictech-crypto-app
+# Erictech Crypto App

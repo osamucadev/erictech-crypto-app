@@ -1,0 +1,14 @@
+* {
+  font-family: "Urbanist", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  margin: 0px;
+}
+
+#app {
+  background-color: #f5f7fa;
+}
