@@ -4,7 +4,7 @@
         <div class="profile-section">
             <div class="profile-header">
                 <div class="profile-image-container">
-                    <img v-if="user.profileImage" :src="'http://localhost:5000/' + user.profileImage" alt="Profile"
+                    <img v-if="user.profileImage" :src="`${viteBaseApiUrl}${user.profileImage}`" alt="Profile"
                         class="profile-image">
                     <div v-else class="profile-placeholder" :style="{ backgroundColor: randomColor }">
                         {{ userInitial }}
@@ -38,6 +38,8 @@ import CryptoSection from '@/components/CryptoSection.vue'
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+
+const viteBaseApiUrl = import.meta.env.VITE_BASE_API_URL
 
 const { t } = useI18n()
 

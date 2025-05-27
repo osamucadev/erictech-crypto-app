@@ -7,7 +7,7 @@
                 <label for="profileImage">{{ t('editProfile.profileImage') }}</label>
                 <div class="image-upload">
                     <img v-if="previewImage || form.profileImage"
-                        :src="previewImage || 'http://localhost:5000/' + form.profileImage" alt="Preview"
+                        :src="previewImage || `${viteBaseApiUrl}${form.profileImage}`" alt="Preview"
                         class="profile-preview">
                     <div v-else class="profile-placeholder">
                         {{ userInitial }}
@@ -22,17 +22,18 @@
 
             <div class="form-group">
                 <label for="name">{{ t('editProfile.name') }}</label>
-                <input type="text" id="name" v-model="form.name" required class="input-field">
+                <input type="text" id="name" v-model="form.name" required class="input-field" :disabled="loading">
             </div>
 
             <div class="form-group">
                 <label for="email">{{ t('editProfile.email') }}</label>
-                <input type="email" id="email" v-model="form.email" required class="input-field">
+                <input type="email" id="email" v-model="form.email" required class="input-field" :disabled="loading">
             </div>
 
             <div class="form-group">
                 <label for="description">{{ t('editProfile.description') }}</label>
-                <textarea id="description" v-model="form.description" class="textarea-field"></textarea>
+                <textarea id="description" v-model="form.description" class="textarea-field"
+                    :disabled="loading"></textarea>
             </div>
 
             <div class="form-actions">
@@ -58,6 +59,8 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+
+const viteBaseApiUrl = import.meta.env.VITE_BASE_API_URL
 
 const { t } = useI18n()
 
