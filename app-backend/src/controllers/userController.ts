@@ -11,7 +11,7 @@ const generateToken = (id: string) => {
 
 const deleteOldImage = (imagePath: string | undefined) => {
   if (imagePath) {
-    const fullPath = path.join(__dirname, "..", imagePath);
+    const fullPath = path.join(__dirname, "../..", imagePath);
     if (fs.existsSync(fullPath)) {
       fs.unlinkSync(fullPath);
     }
