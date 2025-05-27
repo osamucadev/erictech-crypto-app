@@ -1,66 +1,33 @@
 <template>
-    <div class="edit-profile-container">
-        <h1>{{ t('editProfile.title') }}</h1>
+    <div class="image-upload">
+        <img v-if="imageUrl" :src="imageUrl" alt="Preview" class="profile-preview">
+        <div v-else class="profile-placeholder">{{ initial }}</div>
 
-        <form @submit.prevent="handleSubmit" class="edit-form">
-            <div class="form-group">
-                <label for="profileImage">{{ t('editProfile.profileImage') }}</label>
-                <ProfileImageUploader :image-url="previewImage || `${viteBaseApiUrl}${form.profileImage}`"
-                    :initial="userInitial" :select-label="t('editProfile.selectImage')"
-                    :change-label="t('editProfile.changeImage')" @file-selected="handleImageChange" />
-            </div>
-
-            <div class="form-group">
-                <label for="name">{{ t('editProfile.name') }}</label>
-                <input type="text" id="name" v-model="form.name" required class="input-field" :disabled="loading">
-            </div>
-
-            <div class="form-group">
-                <label for="email">{{ t('editProfile.email') }}</label>
-                <input type="email" id="email" v-model="form.email" required class="input-field" :disabled="loading">
-            </div>
-
-            <div class="form-group">
-                <label for="description">{{ t('editProfile.description') }}</label>
-                <textarea id="description" v-model="form.description" class="textarea-field"
-                    :disabled="loading"></textarea>
-            </div>
-
-            <div class="form-actions">
-                <button type="button" @click="handleCancel" class="cancel-button">
-                    {{ t('editProfile.cancel') }}
-                </button>
-                <button type="submit" :disabled="loading" class="submit-button">
-                    {{ loading ? t('editProfile.saving') : t('editProfile.saveChanges') }}
-                </button>
-            </div>
-
-            <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
-            <div v-if="successMessage" class="success-message">{{ successMessage }}</div>
-        </form>
+        <input type="file" id="profileImage" accept="image/jpeg, image/png" @change="onFileChange" class="file-input" />
+        <label for="profileImage" class="upload-button">
+            {{ imageUrl ? changeLabel : selectLabel }}
+        </label>
     </div>
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { useEditProfile } from '@/composables/useEditProfile'
-import ProfileImageUploader from '@/components/ProfileImageUploader.vue'
+defineProps<{
+    imageUrl: string
+    initial: string
+    selectLabel: string
+    changeLabel: string
+}>()
 
-const { t } = useI18n()
-const viteBaseApiUsersUrl = import.meta.env.VITE_BASE_API_USERS_URL
-const viteBaseApiUrl = import.meta.env.VITE_BASE_API_URL
+const emit = defineEmits<{
+    (e: 'file-selected', file: File): void
+}>()
 
-const {
-    form,
-    loading,
-    errorMessage,
-    successMessage,
-    previewImage,
-    userInitial,
-    handleSubmit,
-    handleCancel,
-    handleImageChange
-} = useEditProfile(viteBaseApiUsersUrl)
+const onFileChange = (e: Event) => {
+    const input = e.target as HTMLInputElement
+    if (input.files?.[0]) {
+        emit('file-selected', input.files[0])
+    }
+}
 </script>
 
 <style scoped>
