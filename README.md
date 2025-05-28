@@ -1,5 +1,6 @@
-
 # Erictech Crypto App
+
+<div style="background-color: #fff3cd; padding: 10px; border-left: 5px solid #ffeeba;color: #856404;  margin-bottom: 15px; border-radius: 4px;"> ⚠️ <strong>¡Nueva versión disponible!</strong> La versión 2.0 de esta aplicación está disponible en: <a href="https://github.com/osamucadev/erictech-crypto-app/tree/v2" style="text-decoration: underline;">https://github.com/osamucadev/erictech-crypto-app/tree/v2</a> </div>
 
 Bienvenido a **Erictech Crypto App**, una aplicación web moderna para gestión de criptomonedas, construida con **Node.js**, **MongoDB**, **JWT**, **Vue 3**, **Pinia**, **Vue Router** e **i18n**.
 
